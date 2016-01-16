@@ -1,50 +1,48 @@
-﻿using UnityEngine;
-using System.Collections;
-using RSUnityToolkit;
-using System.Collections.Generic;
-using System;
-using System.Threading;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SpeechRecognizer : MonoBehaviour
 {
-    public int deviceIndex = 0;
-    public int moduleIndex = 0;
     public int languageIndex = 1;
-    public Text debug;
-    static Text t;
 
     private PXCMAudioSource source;
-    private PXCMSpeechRecognition sr;
+    private PXCMSpeechRecognition recognizer;
     private PXCMSession session;
 
-    private static List<PXCMAudioSource.DeviceInfo> devices = new List<PXCMAudioSource.DeviceInfo>();
+    private static IList<PXCMAudioSource.DeviceInfo> devices = new List<PXCMAudioSource.DeviceInfo>();
     private PXCMAudioSource.DeviceInfo device = new PXCMAudioSource.DeviceInfo();
+
+    private static Controller gameController;
 
     [Range(0.2f, 0.8f)]
     public float setVolume = 0.2f;
 
     void Start()
     {
-        session = PXCMSession.CreateInstance();
-        audioSourceCheck();
-        initSession(session);
-        t = this.debug;
+        gameController = AppUtis.Controller;
+
+        this.session = PXCMSession.CreateInstance();
+        this.AudioSourceCheck();
+        this.InitSession(session);
     }
 
-    void audioSourceCheck()
+    void AudioSourceCheck()
     {
         /* Create the AudioSource instance */
-        source = session.CreateAudioSource();
+        this.source = session.CreateAudioSource();
 
-        if (source != null)
+        if (this.source != null)
         {
-            source.ScanDevices();
+            this.source.ScanDevices();
 
             for (int i = 0; ; i++)
             {
                 PXCMAudioSource.DeviceInfo dinfo;
-                if (source.QueryDeviceInfo(i, out dinfo) < pxcmStatus.PXCM_STATUS_NO_ERROR) break;
+                if (source.QueryDeviceInfo(i, out dinfo) < pxcmStatus.PXCM_STATUS_NO_ERROR)
+                {
+                    break;
+                }
 
                 devices.Add(dinfo);
                 UnityEngine.Debug.Log("Device : " + dinfo.name);
@@ -59,23 +57,13 @@ public class SpeechRecognizer : MonoBehaviour
 
     static void OnRecognition(PXCMSpeechRecognition.RecognitionData data)
     {
-
         UnityEngine.Debug.Log("RECOGNIZED sentence : " + data.scores[0].sentence);
         UnityEngine.Debug.Log("RECOGNIZED tags : " + data.scores[0].tags);
 
-        if (data.scores[0].sentence == "Create")
-            UnityEngine.Debug.Log("Call Create Function");
-        if (data.scores[0].sentence == "Save")
-            UnityEngine.Debug.Log("Call Save Function");
-        if (data.scores[0].sentence == "Load")
-            UnityEngine.Debug.Log("Call Load Function");
-        if (data.scores[0].sentence == "Run")
-            UnityEngine.Debug.Log("Call Run Function");
-
-        //t.text = data.scores[0].sentence;
+        gameController.AddAction(new MirrorAction(data.scores[0].sentence));
     }
 
-    void initSession(PXCMSession session)
+    void InitSession(PXCMSession session)
     {
         if (source == null)
         {
@@ -94,19 +82,19 @@ public class SpeechRecognizer : MonoBehaviour
         PXCMSession.ImplDesc mdesc = new PXCMSession.ImplDesc();
         mdesc.iuid = 0;
 
-        pxcmStatus sts = session.CreateImpl<PXCMSpeechRecognition>(out sr);
+        var status = session.CreateImpl<PXCMSpeechRecognition>(out this.recognizer);
 
-        if (sts >= pxcmStatus.PXCM_STATUS_NO_ERROR)
+        if (status >= pxcmStatus.PXCM_STATUS_NO_ERROR)
         {
             // Configure 
             PXCMSpeechRecognition.ProfileInfo pinfo;
             // Language
-            sr.QueryProfile(this.languageIndex, out pinfo);
+            this.recognizer.QueryProfile(this.languageIndex, out pinfo);
             Debug.Log(pinfo.language);
-            sr.SetProfile(pinfo);
+            this.recognizer.SetProfile(pinfo);
 
             // Set Command/Control or Dictation 
-            sr.SetDictation();
+            this.recognizer.SetDictation();
 
             // Initialization 
             Debug.Log("Init Started");
@@ -114,9 +102,9 @@ public class SpeechRecognizer : MonoBehaviour
             handler.onRecognition = OnRecognition;
             handler.onAlert = OnAlert;
 
-            sts = sr.StartRec(source, handler);
+            status = this.recognizer.StartRec(source, handler);
 
-            if (sts >= pxcmStatus.PXCM_STATUS_NO_ERROR)
+            if (status >= pxcmStatus.PXCM_STATUS_NO_ERROR)
             {
                 Debug.Log("Voice Rec Started");
             }
@@ -133,8 +121,8 @@ public class SpeechRecognizer : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        sr.StopRec();
+        this.recognizer.StopRec();
         Debug.Log("Clean up using OnApplicationQuit");
-        sr.Dispose();
+        this.recognizer.Dispose();
     }
 }
