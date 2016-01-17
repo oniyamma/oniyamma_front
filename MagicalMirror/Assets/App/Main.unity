@@ -350,7 +350,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1967680649}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -468,6 +468,15 @@ GameObject:
   - 114: {fileID: 1386235082}
   - 114: {fileID: 1386235081}
   - 114: {fileID: 1386235085}
+  - 114: {fileID: 1386235094}
+  - 114: {fileID: 1386235093}
+  - 114: {fileID: 1386235092}
+  - 114: {fileID: 1386235091}
+  - 114: {fileID: 1386235090}
+  - 114: {fileID: 1386235089}
+  - 114: {fileID: 1386235088}
+  - 114: {fileID: 1386235087}
+  - 114: {fileID: 1386235086}
   m_Layer: 0
   m_Name: SenseManager
   m_TagString: GameController
@@ -500,6 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echoSentenseText: {fileID: 607829966}
+  echoGestureText: {fileID: 1712540031}
   echoExpressionText: {fileID: 659259934}
 --- !u!114 &1386235083
 MonoBehaviour:
@@ -519,7 +529,7 @@ MonoBehaviour:
     SpeechModuleMode: 0
     AvailableSources:
     - "\u30DE\u30A4\u30AF\u914D\u5217 (Creative VF0800)"
-    - "\u30DE\u30A4\u30AF (Cirrus Logic CS4206B (AB 06))"
+    - "\u30DE\u30A4\u30AF (VIA HD Audio)"
     AvailableModules:
     - Voice Recognition (Nuance*)
     AvailableLanguages:
@@ -561,6 +571,177 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5597aa7fc00e84f933663b319c3f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1386235086
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af32bad64e00ae459bee76f086536cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235088}
+  FriendlyName: Gesture Detected
+  Enabled: 1
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Gesture: 2
+  WhichHand: 2
+  HandIndex: 0
+  ContinuousTracking: 0
+--- !u!114 &1386235087
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33140781a3e92d40add2490c4ce1fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235088}
+  ErrorDetected: 0
+  FriendlyName: Event Source
+  Rules:
+  - {fileID: 1386235086}
+  TriggerAttributeName: EventTriggerAtt
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Source: 
+  Success: 0
+--- !u!114 &1386235088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8ca451fae141046aaac1dc626433f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SupportedTriggers:
+  - {fileID: 1386235087}
+  CustomTag: 
+  CustomActionId: 3
+  FunctionName: OnGestureVSign
+--- !u!114 &1386235089
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af32bad64e00ae459bee76f086536cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235091}
+  FriendlyName: Gesture Detected
+  Enabled: 1
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Gesture: 5
+  WhichHand: 2
+  HandIndex: 0
+  ContinuousTracking: 0
+--- !u!114 &1386235090
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33140781a3e92d40add2490c4ce1fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235091}
+  ErrorDetected: 0
+  FriendlyName: Event Source
+  Rules:
+  - {fileID: 1386235089}
+  TriggerAttributeName: EventTriggerAtt
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Source: 
+  Success: 0
+--- !u!114 &1386235091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8ca451fae141046aaac1dc626433f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SupportedTriggers:
+  - {fileID: 1386235090}
+  CustomTag: 
+  CustomActionId: 2
+  FunctionName: OnGestureThumbDown
+--- !u!114 &1386235092
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af32bad64e00ae459bee76f086536cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235094}
+  FriendlyName: Gesture Detected
+  Enabled: 1
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Gesture: 4
+  WhichHand: 2
+  HandIndex: 0
+  ContinuousTracking: 0
+--- !u!114 &1386235093
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33140781a3e92d40add2490c4ce1fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionOwner: {fileID: 1386235094}
+  ErrorDetected: 0
+  FriendlyName: Event Source
+  Rules:
+  - {fileID: 1386235092}
+  TriggerAttributeName: EventTriggerAtt
+  FoldoutOpen: 1
+  AssociatedAction: {fileID: 0}
+  Source: 
+  Success: 0
+--- !u!114 &1386235094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8ca451fae141046aaac1dc626433f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SupportedTriggers:
+  - {fileID: 1386235093}
+  CustomTag: 
+  CustomActionId: 1
+  FunctionName: OnGestureThumbUp
 --- !u!1001 &1436165725
 Prefab:
   m_ObjectHideFlags: 0
@@ -653,6 +834,79 @@ Transform:
   - {fileID: 594649003}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &1712540029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1712540030}
+  - 222: {fileID: 1712540032}
+  - 114: {fileID: 1712540031}
+  m_Layer: 5
+  m_Name: HandGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1712540030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712540029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1967680649}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 25}
+  m_SizeDelta: {x: 500, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1712540031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712540029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1712540032
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712540029}
 --- !u!4 &1837397903 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 06a4edfad316fbd49b2239e8695ab9c8, type: 2}
@@ -741,6 +995,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 607829965}
+  - {fileID: 1712540030}
   - {fileID: 659259933}
   m_Father: {fileID: 0}
   m_RootOrder: 2

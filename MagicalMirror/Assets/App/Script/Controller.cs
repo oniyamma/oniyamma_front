@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour {
 
     public Text echoSentenseText;
+    public Text echoGestureText;
     public Text echoExpressionText;
     private IList<MirrorAction> actionQueue;
 
@@ -33,10 +34,11 @@ public class Controller : MonoBehaviour {
                 {
                     this.echoSentenseText.text = action.Sentence;
                 }
-                else
+                if (action.HandGesture != MirrorAction.HandGestures.None)
                 {
-                    this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressionIntensity);
+                    this.echoGestureText.text = MirrorAction.handGestureNames[action.HandGesture];
                 }
+                this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressionIntensity);
 
                 this.actionQueue.RemoveAt(0);
             }
@@ -47,5 +49,20 @@ public class Controller : MonoBehaviour {
     public void AddAction(MirrorAction action)
     {
         this.actionQueue.Add(action);
+    }
+
+    public void OnGestureThumbUp()
+    {
+        this.AddAction(new MirrorAction(MirrorAction.HandGestures.ThumbsUp));
+    }
+
+    public void OnGestureThumbDown()
+    {
+        this.AddAction(new MirrorAction(MirrorAction.HandGestures.ThumbsDown));
+    }
+
+    public void OnGestureVSign()
+    {
+        this.AddAction(new MirrorAction(MirrorAction.HandGestures.VSign));
     }
 }
