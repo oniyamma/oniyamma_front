@@ -195,3 +195,4 @@ ModelManifest.xml
 MagicalMirror/Library/*
 *.userprefs
 *.sln
+MagicalMirror/Assets/Protected
