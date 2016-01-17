@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
 
-    public Text echoText;
+    public Text echoSentenseText;
+    public Text echoExpressionText;
     private IList<MirrorAction> actionQueue;
 
 	// Use this for initialization
@@ -28,7 +29,14 @@ public class Controller : MonoBehaviour {
             if (this.actionQueue.Count > 0)
             {
                 var action = this.actionQueue[0];
-                this.echoText.text = action.Sentence;
+                if (action.Sentence != string.Empty)
+                {
+                    this.echoSentenseText.text = action.Sentence;
+                }
+                else
+                {
+                    this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressionIntensity);
+                }
 
                 this.actionQueue.RemoveAt(0);
             }
