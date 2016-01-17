@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.IO;
+using UnityEngine;
 
 public static class AppUtis
 {
@@ -12,6 +14,21 @@ public static class AppUtis
                 controller = GameObject.FindWithTag("GameController").GetComponent<Controller>();
             }
             return controller;
+        }
+    }
+
+    public const string AppTitle = "MagicalMirror";
+
+    public static string AppScreenShotPath
+    {
+        get
+        {
+            var path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + Path.DirectorySeparatorChar + AppUtis.AppTitle;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
         }
     }
 
