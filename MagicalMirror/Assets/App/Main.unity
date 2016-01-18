@@ -852,6 +852,7 @@ GameObject:
   - 114: {fileID: 1386235088}
   - 114: {fileID: 1386235087}
   - 114: {fileID: 1386235086}
+  - 114: {fileID: 1386235095}
   m_Layer: 0
   m_Name: SenseManager
   m_TagString: GameController
@@ -1118,6 +1119,17 @@ MonoBehaviour:
   CustomTag: 
   CustomActionId: 1
   FunctionName: OnGestureThumbUp
+--- !u!114 &1386235095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386235080}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0977209d2b7daf419f9f0bc6621d017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1436165725
 Prefab:
   m_ObjectHideFlags: 0
