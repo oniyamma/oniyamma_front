@@ -17,6 +17,7 @@ public class MirrorAction
         {HandGestures.VSign, "V_Sign" },
     };
 
+    public string UserName { get; set; }
     public string Sentence { get; set; }
     public PXCMFaceData.ExpressionsData.FaceExpression FaceExpression { get; set; }
     public int FaceExpressionIntensity { get; set; }
@@ -42,6 +43,7 @@ public class MirrorAction
 
     public MirrorAction(string sentence, PXCMFaceData.ExpressionsData.FaceExpression faceExpression, int faceExpressionIntensity, HandGestures handGesture)
     {
+        this.UserName = "Taro";
         this.Sentence = sentence;
         this.FaceExpression = faceExpression;
         this.FaceExpressionIntensity = faceExpressionIntensity;
