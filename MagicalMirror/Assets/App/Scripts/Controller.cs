@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oniyamma;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,15 @@ public class Controller : MonoBehaviour {
     {
         this.actionQueue = new List<MirrorAction>();
         this.StartCoroutine(this.MainProcess());
-	}
+        OniyammaService.Current.AddLog(new LogParameter()
+        {
+            Type = Oniyamma.LogType.GO,
+            FilePath = "C:\\Hoge\\hoge.jpg",
+            UserId = "569d08753846060c18fc9ef4",
+            Kiss = 1,
+            Smile = 2,
+        });
+    }
 	
 	// Update is called once per frame
 	void Update ()
