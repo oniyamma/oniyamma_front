@@ -65,9 +65,25 @@ public class FaceTracker : MonoBehaviour {
                         var expression = face.QueryExpressions();
                         if (expression != null)
                         {
+                            ExpressionInfo info = new ExpressionInfo();
                             PXCMFaceData.ExpressionsData.FaceExpressionResult result;
+
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_KISS, out result);
+                            info.Kiss = result.intensity;
                             expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_SMILE, out result);
-                            AppUtis.Controller.AddAction(new MirrorAction(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_SMILE, result.intensity));
+                            info.Smile = result.intensity;
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_MOUTH_OPEN, out result);
+                            info.MouthOpen = result.intensity;
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_EYES_UP, out result);
+                            info.EyesUp = result.intensity;
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_EYES_DOWN, out result);
+                            info.EyesDown = result.intensity;
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_EYES_CLOSED_LEFT, out result);
+                            info.EyesClosedLeft = result.intensity;
+                            expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_EYES_CLOSED_RIGHT, out result);
+                            info.EyesClosedRight = result.intensity;
+
+                            AppUtis.Controller.AddAction(new MirrorAction(info));
                         }
                         currentWait = 0f;
                     }
