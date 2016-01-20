@@ -15,6 +15,8 @@ public class Controller : MonoBehaviour {
     public GameObject weatherCommandUI;
     public GameObject bird;
     public GameObject snowman;
+    public GameObject airplane;
+    public AudioClip faceTrackedSound;
 
     public Text echoSentenseText;
     public Text echoGestureText;
@@ -62,20 +64,29 @@ public class Controller : MonoBehaviour {
         var faceTracker = this.GetComponent<FaceTracker>();
         faceTracker.onFaceTacked = delegate ()
         {
-            this.informationPanel.SetActive(true);
-            this.bird.SetActive(true);
+            this.StartCoroutine(this.OnFaceActivted());
         };
         faceTracker.onFaceLost = delegate ()
         {
             this.informationPanel.SetActive(false);
             this.bird.SetActive(false);
+            this.airplane.SetActive(false);
         };
 
         this.StartCoroutine(this.MainProcess());
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private IEnumerator OnFaceActivted()
+    {
+        this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
+        this.informationPanel.SetActive(true);
+        this.bird.SetActive(true);
+        yield return new WaitForSeconds(1);
+        this.airplane.SetActive(true);
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
 	
 	}
