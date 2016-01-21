@@ -13,10 +13,14 @@ public class Controller : MonoBehaviour {
     public GameObject leaveHomeCommandUI;
     public GameObject goHomeCommandUI;
     public GameObject weatherCommandUI;
-    public GameObject bird;
-    public GameObject snowman;
-    public GameObject airplane;
     public AudioClip faceTrackedSound;
+
+    public GameObject bird;
+    public GameObject airplane;
+    public GameObject sunny;
+    public GameObject cloudy;
+    public GameObject snow;
+    public GameObject rain;
 
     public Text echoSentenseText;
     public Text echoGestureText;
@@ -45,6 +49,7 @@ public class Controller : MonoBehaviour {
     };
     private IDictionary<AppMirrorAction.AppActionTypes, GameObject> commandUIMap;
     private Animator menuAnimator;
+    private WeatherType currentWeather = WeatherType.SUNNY;
 
     // Use this for initialization
     void Start()
@@ -59,7 +64,14 @@ public class Controller : MonoBehaviour {
 
         this.menuAnimator = this.informationPanel.GetComponent<Animator>();
         this.menuAnimator.SetBool("visible", false);
-        this.bird.SetActive(true);
+
+        this.bird.SetActive(false);
+        this.airplane.SetActive(false);
+
+        this.sunny.SetActive(false);
+        this.cloudy.SetActive(false);
+        this.rain.SetActive(false);
+        this.snow.SetActive(false);
 
         var faceTracker = this.GetComponent<FaceTracker>();
         faceTracker.onFaceTacked = delegate ()
@@ -187,8 +199,16 @@ public class Controller : MonoBehaviour {
                 break;
             case AppMirrorAction.AppActionTypes.WeatherQuery:
                 {
-                    var weather = Oniyamma.OniyammaService.Current.GetWeather();
+                    var weathers = new WeatherType[4]
+                    {
+                        WeatherType.SUNNY,
+                        WeatherType.CLOUDY,
+                        WeatherType.RAINY,
+                        WeatherType.SNOW,
+                    };
+                    var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[UnityEngine.Random.Range(0, 3)]);
                     Debug.Log(weather.Type);
+                    this.currentWeather = weather.Type;
                 }
                 this.AddAction(new AppMirrorAction(MirrorAction<AppMirrorAction.AppActionTypes>.ActionTypes.SystemFeedback, AppMirrorAction.AppActionTypes.WeatherQueryFeedback));
                 break;
@@ -215,15 +235,49 @@ public class Controller : MonoBehaviour {
                     break;
                 case AppMirrorAction.AppActionTypes.LeaveHomeFeedback:
                 case AppMirrorAction.AppActionTypes.GoHomeFeedback:
-                case AppMirrorAction.AppActionTypes.WeatherQueryFeedback:
                     {
                         var ui = this.commandUIMap[actionType];
                         ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
                     }
                     break;
+                case AppMirrorAction.AppActionTypes.WeatherQueryFeedback:
+                    {
+                        var ui = this.commandUIMap[actionType];
+                        ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
+                        this.StartCoroutine(this.OnWeatherFeedback());
+                    }
+                    break;
             }
         }
     }
+
+    private IEnumerator OnWeatherFeedback()
+    {
+        GameObject target = null;
+        switch(this.currentWeather)
+        {
+            case WeatherType.SUNNY:
+                target = this.sunny;
+                break;
+            case WeatherType.CLOUDY:
+                target = this.cloudy;
+                break;
+            case WeatherType.RAINY:
+                target = this.rain;
+                break;
+            case WeatherType.SNOW:
+                target = this.snow;
+                break;
+        }
+        if (target == null)
+        {
+            yield break;
+        }
+        target.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        target.SetActive(false);
+    }
+
     public void AddAction(AppMirrorAction action)
     {
         this.actionQueue.Add(action);

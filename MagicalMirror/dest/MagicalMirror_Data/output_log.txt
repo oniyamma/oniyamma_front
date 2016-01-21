@@ -2,39 +2,44 @@ Initialize engine version: 5.3.1f1 (cc9cbbcc37b4)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 850M  (ID=0x1391)
-    Vendor:   NVIDIA
-    VRAM:     1995 MB
+    Renderer: Intel(R) Iris(TM) Pro Graphics 5200 (ID=0xd22)
+    Vendor:   Intel
+    VRAM:     128 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\OniyammaServiceLib.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\OniyammaServiceLib.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\RestSharp.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\RestSharp.dll into Unity Child Domain
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\libpxcclr.unity.dll (this message is harmless)
-Loading E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\libpxcclr.unity.dll into Unity Child Domain
-- Completed reload, in  0.047 seconds
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\OniyammaServiceLib.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\OniyammaServiceLib.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\RestSharp.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\RestSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\libpxcclr.unity.dll (this message is harmless)
+Loading C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\libpxcclr.unity.dll into Unity Child Domain
+- Completed reload, in  0.641 seconds
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.564501 ms
+The referenced script on this Behaviour (Game Object 'pig') is missing!
+ 
+(Filename:  Line: 1655)
+
+UnloadTime: 0.738226 ms
 Device : マイク配列 (Creative VF0800)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Device : マイク (VIA HD Audio)
+Device : マイク (Cirrus Logic CS4206B (AB 06))
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -54,66 +59,41 @@ Voice Rec Started
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+ALERT_RECOGNITION_ABORTED
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_END
+ALERT_RECOGNITION_END
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_VOLUME_LOW
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Xml.Linq.dll (this message is harmless)
+Platform assembly: C:\Users\satoshi\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Xml.dll (this message is harmless)
+SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Xml.Linq.dll (this message is harmless)
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Xml.dll (this message is harmless)
-ALERT_SPEECH_END
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_END
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-RECOGNIZED sentence : ただいまー
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-RECOGNIZED tags : 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Command:GO_HOME  ScreenShot:E:\Users\maemoto\Pictures\MagicalMirror\20160120-174243.084.png
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Platform assembly: E:\Users\maemoto\Documents\GitHub\oniyamma_front\MagicalMirror\dest\MagicalMirror_Data\Managed\System.Configuration.dll (this message is harmless)
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED sentence : いってきまーす
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED tags : 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Command:LEAVE_HOME  ScreenShot:E:\Users\maemoto\Pictures\MagicalMirror\20160120-174247.091.png
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -121,7 +101,7 @@ SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-SUNNY
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -129,19 +109,7 @@ SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -149,19 +117,15 @@ SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SNR_LOW
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-SUNNY
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -169,7 +133,7 @@ SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-SUNNY
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -177,95 +141,47 @@ SUNNY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_END
+RAINY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-RECOGNIZED sentence : ん
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-RECOGNIZED tags : 
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SNR_LOW
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SNR_LOW
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_VOLUME_LOW
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SNR_LOW
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_END
+CLOUDY
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED sentence : ん
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED tags : 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED sentence : ん
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED tags : 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_VOLUME_LOW
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_BEGIN
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-ALERT_SPEECH_END
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED sentence : ん
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-RECOGNIZED tags : 
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
@@ -273,6 +189,5 @@ Clean up using OnApplicationQuit
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 700 -> priority: 1 
-  Thread -> id: 27dc -> priority: 1 
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 3390 -> priority: 1 
