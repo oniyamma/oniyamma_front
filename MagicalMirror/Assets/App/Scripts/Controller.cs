@@ -44,6 +44,7 @@ public class Controller : MonoBehaviour {
         { Oniyamma.LogType.GO_HOME, AppMirrorAction.AppActionTypes.GoHomeFeedback },
     };
     private IDictionary<AppMirrorAction.AppActionTypes, GameObject> commandUIMap;
+    private Animator menuAnimator;
 
     // Use this for initialization
     void Start()
@@ -56,7 +57,8 @@ public class Controller : MonoBehaviour {
                { AppMirrorAction.AppActionTypes.WeatherQueryFeedback, this.weatherCommandUI },
           };
 
-        this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
+        this.menuAnimator = this.informationPanel.GetComponent<Animator>();
+        this.menuAnimator.SetBool("visible", false);
         this.bird.SetActive(true);
 
         var faceTracker = this.GetComponent<FaceTracker>();
@@ -147,9 +149,9 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    private void RequestServiceCommand(AppMirrorAction.AppActionTypes commandType, Oniyamma.LogType? logType, AppMirrorAction action)
+    private void RequestServiceCommand(AppMirrorAction.AppActionTypes actionType, Oniyamma.LogType? logType, AppMirrorAction action)
     {
-        switch (commandType)
+        switch (actionType)
         {
             case AppMirrorAction.AppActionTypes.GreetingLogging:
                 {
@@ -272,12 +274,18 @@ public class Controller : MonoBehaviour {
     private IEnumerator TakePhoto(UnityAction<string> callback)
     {
         var fileName = string.Format("{0}{1}{2}.png", AppUtis.AppScreenShotPath, Path.DirectorySeparatorChar, DateTime.Now.ToString("yyyyMMdd-HHmmss.fff"));
-        //this.UIRoot.SetActive(false);
+        var menuVisible = this.menuAnimator.GetBool("visible");
+        var speed = this.menuAnimator.speed;
+        this.menuAnimator.speed = 100;
+
+        this.UIRoot.SetActive(false);
 
         yield return new WaitForEndOfFrame();
 
         Application.CaptureScreenshot(fileName);
-        //this.UIRoot.SetActive(true);
+        this.UIRoot.SetActive(true);
+        this.menuAnimator.SetBool("visible", menuVisible);
+        this.menuAnimator.speed = speed;
         callback(fileName);
     }
 }

@@ -2,9 +2,12 @@
 {
     public enum AppActionTypes
     {
+        IdlingFeedback,
+
         GreetingLogging,
         WeatherQuery,
         EmotionLoging,
+
         FaceTrackedFeedback,
         FaceLostFeedback,
         LeaveHomeFeedback,
