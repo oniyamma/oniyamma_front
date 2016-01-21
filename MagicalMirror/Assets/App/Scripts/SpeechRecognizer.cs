@@ -60,7 +60,7 @@ public class SpeechRecognizer : MonoBehaviour
         UnityEngine.Debug.Log("RECOGNIZED sentence : " + data.scores[0].sentence);
         UnityEngine.Debug.Log("RECOGNIZED tags : " + data.scores[0].tags);
 
-        gameController.AddAction(new MirrorAction(data.scores[0].sentence));
+        gameController.AddAction(new AppMirrorAction(data.scores[0].sentence));
     }
 
     void InitSession(PXCMSession session)

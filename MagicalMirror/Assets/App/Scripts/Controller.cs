@@ -22,41 +22,39 @@ public class Controller : MonoBehaviour {
     public Text echoGestureText;
     public Text echoExpressionText;
 
-    private IList<MirrorAction> actionQueue;
+    private IList<AppMirrorAction> actionQueue;
 
-    private enum CommandType
+    private static IDictionary<string, object> sentenceCommandMap = new Dictionary<string, object>
     {
-        Log,
-        Weather,
-        Emotion,
-    }
-
-    private static IDictionary<string, object> sentenceCommands = new Dictionary<string, object>
+           { "行ってき", Oniyamma.LogType.LEAVE_HOME },
+           { "いってき", Oniyamma.LogType.LEAVE_HOME },
+           { "ただい", Oniyamma.LogType.GO_HOME },
+           { "天気", AppMirrorAction.AppActionTypes.WeatherQuery },
+           { "てんき", AppMirrorAction.AppActionTypes.WeatherQuery },
+    };
+    private static IDictionary<AppMirrorAction.HandGestures, object> gestureCommandMap = new Dictionary<AppMirrorAction.HandGestures, object>
     {
-        { "行ってき", Oniyamma.LogType.LEAVE_HOME },
-        { "いってき", Oniyamma.LogType.LEAVE_HOME },
-        { "ただい", Oniyamma.LogType.GO_HOME },
-        { "天気", CommandType.Weather },
-        { "てんき", CommandType.Weather },
-   };
-    private static IDictionary<MirrorAction.HandGestures, object> gestureCommands = new Dictionary<MirrorAction.HandGestures, object>
+           { AppMirrorAction.HandGestures.ThumbsUp, Oniyamma.LogType.LEAVE_HOME },
+           { AppMirrorAction.HandGestures.ThumbsDown, Oniyamma.LogType.GO_HOME },
+           { AppMirrorAction.HandGestures.VSign, AppMirrorAction.AppActionTypes.WeatherQuery },
+    };
+    private static IDictionary<Oniyamma.LogType, AppMirrorAction.AppActionTypes> serviceUiFeedbackMap = new Dictionary<Oniyamma.LogType, AppMirrorAction.AppActionTypes>
     {
-        { MirrorAction.HandGestures.ThumbsUp, Oniyamma.LogType.LEAVE_HOME },
-        { MirrorAction.HandGestures.ThumbsDown, Oniyamma.LogType.GO_HOME },
-        { MirrorAction.HandGestures.VSign, CommandType.Weather },
-   };
-    private IDictionary<object, GameObject> commandUIs;
+        { Oniyamma.LogType.LEAVE_HOME, AppMirrorAction.AppActionTypes.LeaveHomeFeedback },
+        { Oniyamma.LogType.GO_HOME, AppMirrorAction.AppActionTypes.GoHomeFeedback },
+    };
+    private IDictionary<AppMirrorAction.AppActionTypes, GameObject> commandUIMap;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        this.actionQueue = new List<MirrorAction>();
-        this.commandUIs = new Dictionary<object, GameObject>()
-        {
-            { Oniyamma.LogType.LEAVE_HOME, this.leaveHomeCommandUI },
-            { Oniyamma.LogType.GO_HOME, this.goHomeCommandUI },
-            { CommandType.Weather, this.weatherCommandUI },
-       };
+        this.actionQueue = new List<AppMirrorAction>();
+        this.commandUIMap = new Dictionary<AppMirrorAction.AppActionTypes, GameObject>()
+           {
+               { AppMirrorAction.AppActionTypes.LeaveHomeFeedback, this.leaveHomeCommandUI },
+               { AppMirrorAction.AppActionTypes.GoHomeFeedback, this.goHomeCommandUI },
+               { AppMirrorAction.AppActionTypes.WeatherQueryFeedback, this.weatherCommandUI },
+          };
 
         this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
         this.bird.SetActive(true);
@@ -64,32 +62,20 @@ public class Controller : MonoBehaviour {
         var faceTracker = this.GetComponent<FaceTracker>();
         faceTracker.onFaceTacked = delegate ()
         {
-            this.StartCoroutine(this.OnFaceActivted());
+            this.AddAction(new AppMirrorAction(MirrorAction<AppMirrorAction.AppActionTypes>.ActionTypes.SystemFeedback, AppMirrorAction.AppActionTypes.FaceTrackedFeedback));
         };
         faceTracker.onFaceLost = delegate ()
         {
-            this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
-            this.bird.SetActive(false);
-            this.airplane.SetActive(false);
+            this.AddAction(new AppMirrorAction(MirrorAction<AppMirrorAction.AppActionTypes>.ActionTypes.SystemFeedback, AppMirrorAction.AppActionTypes.FaceLostFeedback));
         };
 
         this.StartCoroutine(this.MainProcess());
     }
 
-    private IEnumerator OnFaceActivted()
-    {
-        this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
-        this.informationPanel.GetComponent<Animator>().SetBool("visible", true);
-        this.bird.SetActive(true);
-        yield return new WaitForSeconds(1);
-        this.airplane.SetActive(true);
-    }
-
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-	
-	}
+    }
 
     private IEnumerator MainProcess()
     {
@@ -98,73 +84,79 @@ public class Controller : MonoBehaviour {
             if (this.actionQueue.Count > 0)
             {
                 var action = this.actionQueue[0];
-                if (action.FaceExpressions != null)
+                switch (action.ActionType)
                 {
-                    this.SendCommand(CommandType.Emotion, null, action);
-                    this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressions.Smile);
+                    case AppMirrorAction.ActionTypes.HumanInput:
+                        this.ProcessHumanInput(action);
+                        break;
+                    case AppMirrorAction.ActionTypes.SystemFeedback:
+                        this.ProcessSystemFeedback(action);
+                        break;
                 }
-                else
-                {
-                    if (action.Sentence != string.Empty)
-                    {
-                        this.echoSentenseText.text = action.Sentence;
-                        foreach (var key in sentenceCommands.Keys)
-                        {
-                            if (action.Sentence.IndexOf(key) > -1)
-                            {
-                                if (sentenceCommands[key] is Oniyamma.LogType)
-                                {
-                                    this.SendCommand(CommandType.Log, (Oniyamma.LogType)sentenceCommands[key], action);
-                                }
-                                if (sentenceCommands[key] is CommandType)
-                                {
-                                    this.SendCommand((CommandType)sentenceCommands[key], null, action);
-                                }
-                            }
-                        }
-                    }
-                    if (action.HandGesture != MirrorAction.HandGestures.None)
-                    {
-                        this.echoGestureText.text = MirrorAction.handGestureNames[action.HandGesture];
-                        foreach (var key in gestureCommands.Keys)
-                        {
-                            if (action.HandGesture == key)
-                            {
-                                if (gestureCommands[key] is Oniyamma.LogType)
-                                {
-                                    this.SendCommand(CommandType.Log, (Oniyamma.LogType)gestureCommands[key], action);
-                                }
-                                if (gestureCommands[key] is CommandType)
-                                {
-                                    this.SendCommand((CommandType)gestureCommands[key], null, action);
-                                }
-                            }
-                        }
-                    }
-                }
-
                 this.actionQueue.RemoveAt(0);
             }
             yield return 0;
         }
     }
 
-    private void SendCommand(CommandType commandType, Oniyamma.LogType? logType, MirrorAction action)
+    private void ProcessHumanInput(AppMirrorAction action)
+    {
+        if (action.FaceExpressions != null)
+        {
+            this.RequestServiceCommand(AppMirrorAction.AppActionTypes.EmotionLoging, null, action);
+            this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressions.Smile);
+        }
+        else
+        {
+            if (action.Sentence != string.Empty)
+            {
+                this.echoSentenseText.text = action.Sentence;
+                foreach (var key in sentenceCommandMap.Keys)
+                {
+                    if (action.Sentence.IndexOf(key) > -1)
+                    {
+                        if (sentenceCommandMap[key] is Oniyamma.LogType)
+                        {
+                            this.RequestServiceCommand(AppMirrorAction.AppActionTypes.GreetingLogging, (Oniyamma.LogType)sentenceCommandMap[key], action);
+                        }
+                        if (sentenceCommandMap[key] is AppMirrorAction.AppActionTypes)
+                        {
+                            this.RequestServiceCommand((AppMirrorAction.AppActionTypes)sentenceCommandMap[key], null, action);
+                        }
+                    }
+                }
+            }
+            if (action.HandGesture != AppMirrorAction.HandGestures.None)
+            {
+                this.echoGestureText.text = AppMirrorAction.handGestureNames[action.HandGesture];
+                foreach (var key in gestureCommandMap.Keys)
+                {
+                    if (action.HandGesture == key)
+                    {
+                        if (gestureCommandMap[key] is Oniyamma.LogType)
+                        {
+                            this.RequestServiceCommand(AppMirrorAction.AppActionTypes.GreetingLogging, (Oniyamma.LogType)gestureCommandMap[key], action);
+                        }
+                        if (gestureCommandMap[key] is AppMirrorAction.AppActionTypes)
+                        {
+                            this.RequestServiceCommand((AppMirrorAction.AppActionTypes)gestureCommandMap[key], null, action);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void RequestServiceCommand(AppMirrorAction.AppActionTypes commandType, Oniyamma.LogType? logType, AppMirrorAction action)
     {
         switch (commandType)
         {
-            case CommandType.Log:
+            case AppMirrorAction.AppActionTypes.GreetingLogging:
                 {
                     this.StartCoroutine(this.TakePhoto(
                        delegate (string fileName)
                        {
                            Debug.Log(string.Format("Command:{0}  ScreenShot:{1}", logType, fileName));
-
-                           if (this.commandUIs.ContainsKey(logType))
-                           {
-                               var ui = this.commandUIs[logType];
-                               ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
-                           }
 
                            OniyammaService.Current.AddLog(new LogParameter()
                            {
@@ -174,9 +166,10 @@ public class Controller : MonoBehaviour {
                            });
                        })
                        );
+                    this.AddAction(new AppMirrorAction(MirrorAction<AppMirrorAction.AppActionTypes>.ActionTypes.SystemFeedback, serviceUiFeedbackMap[(Oniyamma.LogType)logType]));
                 }
                 break;
-            case CommandType.Emotion:
+            case AppMirrorAction.AppActionTypes.EmotionLoging:
                 {
                     Oniyamma.OniyammaService.Current.ApplyEmotion(new EmotionParameter()
                     {
@@ -190,41 +183,86 @@ public class Controller : MonoBehaviour {
                     });
                 }
                 break;
-            case CommandType.Weather:
+            case AppMirrorAction.AppActionTypes.WeatherQuery:
                 {
-                    var ui = this.commandUIs[CommandType.Weather];
-                    ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
                     var weather = Oniyamma.OniyammaService.Current.GetWeather();
                     Debug.Log(weather.Type);
                 }
+                this.AddAction(new AppMirrorAction(MirrorAction<AppMirrorAction.AppActionTypes>.ActionTypes.SystemFeedback, AppMirrorAction.AppActionTypes.WeatherQueryFeedback));
                 break;
         }
     }
 
-    public void AddAction(MirrorAction action)
+    private void ProcessSystemFeedback(AppMirrorAction action)
+    {
+        Debug.Log(action.HasAppData);
+        if (action.HasAppData)
+        {
+            var actionType = action.AppData;
+            switch (actionType)
+            {
+                case AppMirrorAction.AppActionTypes.FaceTrackedFeedback:
+                    {
+                        this.StartCoroutine(this.OnFaceActivted());
+                    }
+                    break;
+                case AppMirrorAction.AppActionTypes.FaceLostFeedback:
+                    {
+                        this.StartCoroutine(this.OnFaceLost());
+                    }
+                    break;
+                case AppMirrorAction.AppActionTypes.LeaveHomeFeedback:
+                case AppMirrorAction.AppActionTypes.GoHomeFeedback:
+                case AppMirrorAction.AppActionTypes.WeatherQueryFeedback:
+                    {
+                        var ui = this.commandUIMap[actionType];
+                        ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
+                    }
+                    break;
+            }
+        }
+    }
+    public void AddAction(AppMirrorAction action)
     {
         this.actionQueue.Add(action);
     }
 
+    private IEnumerator OnFaceActivted()
+    {
+        this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
+        this.informationPanel.GetComponent<Animator>().SetBool("visible", true);
+        this.bird.SetActive(true);
+        yield return new WaitForSeconds(1);
+        this.airplane.SetActive(true);
+    }
+
+    private IEnumerator OnFaceLost()
+    {
+        this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
+        this.bird.SetActive(false);
+        this.airplane.SetActive(false);
+        yield break;
+    }
+
     public void OnGestureThumbUp()
     {
-        this.AddAction(new MirrorAction(MirrorAction.HandGestures.ThumbsUp));
+        this.AddAction(new AppMirrorAction(AppMirrorAction.HandGestures.ThumbsUp));
     }
 
     public void OnGestureThumbDown()
     {
-        this.AddAction(new MirrorAction(MirrorAction.HandGestures.ThumbsDown));
+        this.AddAction(new AppMirrorAction(AppMirrorAction.HandGestures.ThumbsDown));
     }
 
     public void OnGestureVSign()
     {
-        this.AddAction(new MirrorAction(MirrorAction.HandGestures.VSign));
+        this.AddAction(new AppMirrorAction(AppMirrorAction.HandGestures.VSign));
     }
 
     public void OnTakePhoto()
     {
         this.StartCoroutine(this.TakePhoto(
-            delegate (string fileName) 
+            delegate (string fileName)
             {
                 Debug.Log("ScreenShot : " + fileName);
             })

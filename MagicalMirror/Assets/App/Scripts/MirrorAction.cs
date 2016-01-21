@@ -1,7 +1,14 @@
 ﻿using System.Collections.Generic;
 
-public class MirrorAction
+public class MirrorAction<T>
 {
+    public enum ActionTypes
+    {
+        None,
+        HumanInput,
+        SystemFeedback,
+    }
+
     public enum HandGestures 
     {
         None,
@@ -17,34 +24,31 @@ public class MirrorAction
         {HandGestures.VSign, "V_Sign" },
     };
 
+    public ActionTypes ActionType { get; set; }
     public string UserName { get; set; }
     public string Sentence { get; set; }
     public HandGestures HandGesture { get; set; }
     public ExpressionInfo FaceExpressions;
+    public T AppData { get; set; }
 
-    public MirrorAction() : this(string.Empty)
+    public bool HasAppData
     {
+        get
+        {
+            return !this.AppData.Equals(emptyObject);
+        }
     }
 
-    public MirrorAction(string sentence) : this(sentence, null, HandGestures.None)
-    {
-    }
+    protected static T emptyObject;
 
-    public MirrorAction(ExpressionInfo expressionInfo) : 
-        this(string.Empty, expressionInfo, HandGestures.None)
+    public MirrorAction(ActionTypes actionType, string sentence, ExpressionInfo expressionInfo, HandGestures handGesture, T appData)
     {
-    }
-
-    public MirrorAction(HandGestures handGesture) : 
-        this(string.Empty, null, handGesture)
-    {
-    }
-
-    public MirrorAction(string sentence, ExpressionInfo expressionInfo, HandGestures handGesture)
-    {
+        this.ActionType = actionType;
+            
         this.UserName = "Taro";
         this.Sentence = sentence;
         this.HandGesture = handGesture;
         this.FaceExpressions = expressionInfo;
+        this.AppData = appData;
     }
 }

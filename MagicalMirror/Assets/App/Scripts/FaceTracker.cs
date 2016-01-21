@@ -49,6 +49,9 @@ public class FaceTracker : MonoBehaviour {
                 var faces = SenseToolkitManager.Instance.FaceModuleOutput.QueryFaces();
                 if (faces.Length > 0)
                 {
+                    // 最初の顔の表情を取得する
+                    var face = faces[0];
+
                     if (faceCount == 0)
                     {
                         if (this.onFaceTacked != null)
@@ -58,8 +61,6 @@ public class FaceTracker : MonoBehaviour {
                         currentWait = 0;
                     }
 
-                    // 最初の顔の表情を取得する
-                    var face = faces[0];
                     if (currentWait > this.expressionDetectInterval)
                     {
                         var expression = face.QueryExpressions();
@@ -83,7 +84,7 @@ public class FaceTracker : MonoBehaviour {
                             expression.QueryExpression(PXCMFaceData.ExpressionsData.FaceExpression.EXPRESSION_EYES_CLOSED_RIGHT, out result);
                             info.EyesClosedRight = result.intensity;
 
-                            AppUtis.Controller.AddAction(new MirrorAction(info));
+                            AppUtis.Controller.AddAction(new AppMirrorAction(info));
                         }
                         currentWait = 0f;
                     }

@@ -195,6 +195,7 @@ ModelManifest.xml
 MagicalMirror/Library/*
 *.userprefs
 *.sln
+MagicalMirror/Temp
 MagicalMirror/Assets/Protected
 MagicalMirror/Assets/Christmas Pack
 MagicalMirror/Assets/JMO Assets
@@ -205,4 +206,4 @@ MagicalMirror/Assets/MagicProjectiles
 MagicalMirror/Assets/model lowpolys_
 MagicalMirror/Assets/prefab
 MagicalMirror/Assets/TwinkleSoundFX
-MagicalMirror/Temp
+MagicalMirror/Assets/Farm_Animals_Pack01
