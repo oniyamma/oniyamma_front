@@ -58,7 +58,7 @@ public class Controller : MonoBehaviour {
             { CommandType.Weather, this.weatherCommandUI },
        };
 
-        this.informationPanel.SetActive(false);
+        this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
         this.bird.SetActive(true);
 
         var faceTracker = this.GetComponent<FaceTracker>();
@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour {
         };
         faceTracker.onFaceLost = delegate ()
         {
-            this.informationPanel.SetActive(false);
+            this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
             this.bird.SetActive(false);
             this.airplane.SetActive(false);
         };
@@ -79,7 +79,7 @@ public class Controller : MonoBehaviour {
     private IEnumerator OnFaceActivted()
     {
         this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
-        this.informationPanel.SetActive(true);
+        this.informationPanel.GetComponent<Animator>().SetBool("visible", true);
         this.bird.SetActive(true);
         yield return new WaitForSeconds(1);
         this.airplane.SetActive(true);
