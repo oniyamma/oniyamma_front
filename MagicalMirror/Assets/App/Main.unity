@@ -429,8 +429,8 @@ RectTransform:
   - {fileID: 1765193384}
   m_Father: {fileID: 955189573}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0.3, y: 0.4}
-  m_AnchorMax: {x: 0.7, y: 0.65}
+  m_AnchorMin: {x: 0.1, y: 0.4}
+  m_AnchorMax: {x: 0.5, y: 0.65}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -783,10 +783,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72995419c80a5db4a9e5f330c83e8a76, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &331245413 stripped
+--- !u!4 &331245413
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 437432, guid: 72995419c80a5db4a9e5f330c83e8a76, type: 2}
   m_PrefabInternal: {fileID: 331245412}
+  m_GameObject: {fileID: 1647787759}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 853734703}
+  m_RootOrder: 0
 --- !u!1 &343758261
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,8 +953,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 955189573}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0.3, y: 0.35}
-  m_AnchorMax: {x: 0.7, y: 0.4}
+  m_AnchorMin: {x: 0.1, y: 0.35}
+  m_AnchorMax: {x: 0.5, y: 0.4}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -1206,8 +1214,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 955189573}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0.05}
-  m_AnchorMax: {x: 1, y: 0.1}
+  m_AnchorMin: {x: 0.1, y: 0.05}
+  m_AnchorMax: {x: 0.5, y: 0.1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.0000038146973}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1366,7 +1374,7 @@ Transform:
   m_LocalPosition: {x: 0.9563136, y: -0.001230322, z: 0.4786652}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 331245413}
+  - {fileID: 853734703}
   m_Father: {fileID: 1566805607}
   m_RootOrder: 4
 --- !u!95 &605233581
@@ -1804,8 +1812,8 @@ RectTransform:
   - {fileID: 2000151840}
   m_Father: {fileID: 955189573}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0.3, y: 0.1}
-  m_AnchorMax: {x: 0.7, y: 0.35}
+  m_AnchorMin: {x: 0.1, y: 0.1}
+  m_AnchorMax: {x: 0.5, y: 0.35}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -1911,6 +1919,35 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850481537}
+--- !u!1 &853734702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 331245412}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 853734703}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853734703
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 331245412}
+  m_GameObject: {fileID: 853734702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 331245413}
+  - {fileID: 1789422177}
+  m_Father: {fileID: 605233580}
+  m_RootOrder: 0
 --- !u!1 &910719365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,7 +2171,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 66e7703d302252149a5bab568149be61, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 66e7703d302252149a5bab568149be61, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2963,6 +3000,7 @@ MonoBehaviour:
   echoSentenseText: {fileID: 607829966}
   echoGestureText: {fileID: 1712540031}
   echoExpressionText: {fileID: 659259934}
+  weatherFeedbackActionTime: 5
 --- !u!114 &1386235083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,8 +3018,8 @@ MonoBehaviour:
     tey: 0
     SpeechModuleMode: 0
     AvailableSources:
+    - "\u30DE\u30A4\u30AF\u914D\u5217 (Xbox NUI Sensor)"
     - "\u30DE\u30A4\u30AF\u914D\u5217 (Creative VF0800)"
-    - "\u30DE\u30A4\u30AF (Cirrus Logic CS4206B (AB 06))"
     AvailableModules:
     - Voice Recognition (Nuance*)
     AvailableLanguages:
@@ -3669,8 +3707,8 @@ RectTransform:
   - {fileID: 427584535}
   m_Father: {fileID: 955189573}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.3, y: 0.7}
-  m_AnchorMax: {x: 0.7, y: 0.95}
+  m_AnchorMin: {x: 0.1, y: 0.7}
+  m_AnchorMax: {x: 0.5, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -3776,6 +3814,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!1 &1647787759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 331245412}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 331245413}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1692514205
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,8 +4245,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 955189573}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.3, y: 0.65}
-  m_AnchorMax: {x: 0.7, y: 0.7}
+  m_AnchorMin: {x: 0.1, y: 0.65}
+  m_AnchorMax: {x: 0.5, y: 0.7}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -4236,10 +4289,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1774737116}
---- !u!1 &1789422175 stripped
+--- !u!1 &1789422175
 GameObject:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 118134, guid: 72995419c80a5db4a9e5f330c83e8a76, type: 2}
   m_PrefabInternal: {fileID: 331245412}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1789422177}
+  - 82: {fileID: 1789422176}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!82 &1789422176
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4314,6 +4379,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!4 &1789422177
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 331245412}
+  m_GameObject: {fileID: 1789422175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 853734703}
+  m_RootOrder: 1
 --- !u!1 &1800088180 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100016, guid: 351fe189016bb434c842036793c3878d, type: 2}

@@ -50,6 +50,7 @@ public class Controller : MonoBehaviour {
     private IDictionary<AppMirrorAction.AppActionTypes, GameObject> commandUIMap;
     private Animator menuAnimator;
     private WeatherType currentWeather = WeatherType.SUNNY;
+    public float weatherFeedbackActionTime = 5.0f;
 
     // Use this for initialization
     void Start()
@@ -206,7 +207,8 @@ public class Controller : MonoBehaviour {
                         WeatherType.RAINY,
                         WeatherType.SNOW,
                     };
-                    var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[UnityEngine.Random.Range(0, 3)]);
+                    var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[UnityEngine.Random.Range(0, 4)]);
+                    //var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[3]);
                     Debug.Log(weather.Type);
                     this.currentWeather = weather.Type;
                 }
@@ -274,7 +276,7 @@ public class Controller : MonoBehaviour {
             yield break;
         }
         target.SetActive(true);
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(this.weatherFeedbackActionTime);
         target.SetActive(false);
     }
 
@@ -286,7 +288,8 @@ public class Controller : MonoBehaviour {
     private IEnumerator OnFaceActivted()
     {
         this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
-        this.informationPanel.GetComponent<Animator>().SetBool("visible", true);
+        this.menuAnimator.SetTrigger("showTrigger");
+        this.menuAnimator.SetBool("visible", true);
         this.bird.SetActive(true);
         yield return new WaitForSeconds(1);
         this.airplane.SetActive(true);
@@ -328,9 +331,9 @@ public class Controller : MonoBehaviour {
     private IEnumerator TakePhoto(UnityAction<string> callback)
     {
         var fileName = string.Format("{0}{1}{2}.png", AppUtis.AppScreenShotPath, Path.DirectorySeparatorChar, DateTime.Now.ToString("yyyyMMdd-HHmmss.fff"));
-        var menuVisible = this.menuAnimator.GetBool("visible");
         var speed = this.menuAnimator.speed;
         this.menuAnimator.speed = 100;
+        var menuVisible = this.menuAnimator.GetBool("visible");
 
         this.UIRoot.SetActive(false);
 
@@ -339,6 +342,7 @@ public class Controller : MonoBehaviour {
         Application.CaptureScreenshot(fileName);
         this.UIRoot.SetActive(true);
         this.menuAnimator.SetBool("visible", menuVisible);
+        this.menuAnimator.SetTrigger("showTrigger");
         this.menuAnimator.speed = speed;
         callback(fileName);
     }
