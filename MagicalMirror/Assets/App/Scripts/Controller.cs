@@ -16,6 +16,7 @@ public class Controller : MonoBehaviour {
     public AudioClip faceTrackedSound;
 
     public GameObject bird;
+    public GameObject pig;
     public GameObject airplane;
     public GameObject sunny;
     public GameObject cloudy;
@@ -68,6 +69,7 @@ public class Controller : MonoBehaviour {
 
         this.bird.SetActive(false);
         this.airplane.SetActive(false);
+        this.pig.SetActive(false);
 
         this.sunny.SetActive(false);
         this.cloudy.SetActive(false);
@@ -291,6 +293,7 @@ public class Controller : MonoBehaviour {
         this.menuAnimator.SetTrigger("showTrigger");
         this.menuAnimator.SetBool("visible", true);
         this.bird.SetActive(true);
+        this.pig.SetActive(true);
         yield return new WaitForSeconds(1);
         this.airplane.SetActive(true);
     }
@@ -299,6 +302,7 @@ public class Controller : MonoBehaviour {
     {
         this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
         this.bird.SetActive(false);
+        this.pig.SetActive(false);
         this.airplane.SetActive(false);
         yield break;
     }
