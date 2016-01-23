@@ -17,6 +17,9 @@ public class Controller : MonoBehaviour {
 
     public GameObject bird;
     public GameObject pig;
+    public GameObject dog;
+    public GameObject duck;
+    public GameObject rabbit;
     public GameObject airplane;
     public GameObject sunny;
     public GameObject cloudy;
@@ -71,20 +74,29 @@ public class Controller : MonoBehaviour {
                { AppMirrorAction.AppActionTypes.GoHomeFeedback, this.goHomeCommandUI },
                { AppMirrorAction.AppActionTypes.WeatherQueryFeedback, this.weatherCommandUI },
           };
-        this.leaveHomeEffects = new GameObject[1]
+        this.leaveHomeEffects = new GameObject[]
         {
             this.airplane,
         };
-        this.goHomeEffects = new GameObject[0]
+        this.goHomeEffects = new GameObject[]
         {
+        };
+        this.idlingRandomEffects = new GameObject[]
+        {
+            this.bird,
+            this.pig,
+            this.dog,
+            this.duck,
+            this.rabbit,
         };
 
         this.menuAnimator = this.informationPanel.GetComponent<Animator>();
         this.menuAnimator.SetBool("visible", false);
 
-        this.bird.SetActive(false);
-        this.airplane.SetActive(false);
-        this.pig.SetActive(false);
+        foreach (var effect in this.idlingRandomEffects)
+        {
+            effect.SetActive(false);
+        }
 
         this.sunny.SetActive(false);
         this.cloudy.SetActive(false);
@@ -105,6 +117,7 @@ public class Controller : MonoBehaviour {
         };
 
         this.StartCoroutine(this.MainProcess());
+        this.StartCoroutine(this.BackgroundProcess());
     }
 
     // Update is called once per frame
@@ -288,7 +301,11 @@ public class Controller : MonoBehaviour {
             effect.SetActive(false);
             effect.SetActive(true);
         }
-        yield return new WaitForSeconds(10f);
+        this.unityChan.GetComponent<Animator>().CrossFade("KneelDown", 0);
+        yield return new WaitForSeconds(3f);
+        this.unityChan.GetComponent<Animator>().CrossFade("Standing(loop)", 0);
+        
+        yield return new WaitForSeconds(7f);
         foreach (var effect in this.leaveHomeEffects)
         {
             effect.SetActive(false);
@@ -354,9 +371,7 @@ public class Controller : MonoBehaviour {
         this.menuAnimator.SetBool("visible", true);
         this.unityChanBase.SetActive(true);
         this.unityChan.SetActive(true);
-
-        this.bird.SetActive(true);
-        this.pig.SetActive(true);
+        this.unityChan.GetComponent<Animator>().CrossFade("TopOfJump(loop)", 0);
         yield break;
     }
 
@@ -365,10 +380,6 @@ public class Controller : MonoBehaviour {
         this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
         this.unityChan.SetActive(false);
         this.unityChanBase.SetActive(false);
-
-        this.bird.SetActive(false);
-        this.pig.SetActive(false);
-        this.airplane.SetActive(false);
         yield break;
     }
 
@@ -417,5 +428,19 @@ public class Controller : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
 
         callback(fileName);
+    }
+
+    private IEnumerator BackgroundProcess()
+    {
+        while (true)
+        {
+            var nextWait = UnityEngine.Random.Range(5f, 15f);
+
+            var target = this.idlingRandomEffects[UnityEngine.Random.Range(0, this.idlingRandomEffects.Length)];
+            target.SetActive(false);
+            target.SetActive(true);
+
+            yield return new WaitForSeconds(nextWait);
+        }
     }
 }
