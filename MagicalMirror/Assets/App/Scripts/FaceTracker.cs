@@ -9,9 +9,8 @@ using UnityEngine.Events;
 public class FaceTracker : MonoBehaviour {
 
     public float expressionDetectInterval = 1.0f;
+    public string LastLandmarkPointsFile { get; set; }
 
-    public bool outputLandmarkFile = false;
-    private string landmarkDataFileName = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + Path.DirectorySeparatorChar + "landmark.csv";
     private PXCMFaceData.LandmarkPoint[] landmarkPoints = null;
 
     public UnityAction onFaceTacked = null;
@@ -41,6 +40,8 @@ public class FaceTracker : MonoBehaviour {
     {
         var faceCount = 0;
         var currentWait = 0f;
+        var outputLandmarkFile = false;
+        this.LastLandmarkPointsFile = string.Empty;
         while (true)
         {
             if (SenseToolkitManager.Instance.FaceModuleOutput != null)
@@ -58,6 +59,11 @@ public class FaceTracker : MonoBehaviour {
                         {
                             this.onFaceTacked();
                         }
+                        outputLandmarkFile = true;
+                        this.LastLandmarkPointsFile = string.Format("{0}{1}landmark.{2}.csv", 
+                            System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop), 
+                            Path.DirectorySeparatorChar, 
+                            DateTime.Now.ToString("yyyyMMdd-HHmmss.fff"));
                         currentWait = 0;
                     }
 
@@ -99,9 +105,9 @@ public class FaceTracker : MonoBehaviour {
                         }
                         if (landmarks.QueryPoints(out this.landmarkPoints))
                         {
-                            if (this.outputLandmarkFile)
+                            if (outputLandmarkFile)
                             {
-                                File.AppendAllText(this.landmarkDataFileName, ",,,\n", Encoding.GetEncoding("UTF-8"));
+                                //File.AppendAllText(landmarkDataFileName, ",,,\n", Encoding.GetEncoding("UTF-8"));
                                 foreach (PXCMFaceData.LandmarkType landmark in Enum.GetValues(typeof(PXCMFaceData.LandmarkType)))
                                 {
                                     var index = landmarks.QueryPointIndex(landmark);
@@ -111,9 +117,10 @@ public class FaceTracker : MonoBehaviour {
                                         var point = landmarkPoints[index].world;
                                         var line = string.Format("{0},{1},{2},{3}\n", landmark, point.x, point.y, point.z);
                                         //Debug.Log(line);
-                                        File.AppendAllText(this.landmarkDataFileName, line, Encoding.GetEncoding("UTF-8"));
+                                        File.AppendAllText(this.LastLandmarkPointsFile, line, Encoding.GetEncoding("UTF-8"));
                                     }
                                 }
+                                outputLandmarkFile = false;
                             }
                         }
                     }
@@ -126,6 +133,8 @@ public class FaceTracker : MonoBehaviour {
                         {
                             this.onFaceLost();
                         }
+                        outputLandmarkFile = false;
+                        this.LastLandmarkPointsFile = string.Empty;
                     }
                 }
                 faceCount = faces.Length;

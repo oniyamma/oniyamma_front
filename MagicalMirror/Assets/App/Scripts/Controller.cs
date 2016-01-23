@@ -32,6 +32,8 @@ public class Controller : MonoBehaviour {
     public Text echoGestureText;
     public Text echoExpressionText;
 
+    public string serviceURL = "http://10.0.1.148:3000";
+
     private IList<AppMirrorAction> actionQueue;
 
     private static IDictionary<string, object> sentenceCommandMap = new Dictionary<string, object>
@@ -65,7 +67,7 @@ public class Controller : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Oniyamma.OniyammaService.Current.Init("http://10.0.1.148:3000");
+        Oniyamma.OniyammaService.Current.Init(this.serviceURL);
 
         this.actionQueue = new List<AppMirrorAction>();
         this.commandUIMap = new Dictionary<AppMirrorAction.AppActionTypes, GameObject>()
@@ -98,6 +100,8 @@ public class Controller : MonoBehaviour {
             effect.SetActive(false);
         }
 
+        this.bird.SetActive(false);
+        this.airplane.SetActive(false);
         this.sunny.SetActive(false);
         this.cloudy.SetActive(false);
         this.rain.SetActive(false);
@@ -303,9 +307,10 @@ public class Controller : MonoBehaviour {
         }
         this.unityChan.GetComponent<Animator>().CrossFade("KneelDown", 0);
         yield return new WaitForSeconds(3f);
-        this.unityChan.GetComponent<Animator>().CrossFade("Standing(loop)", 0);
         
         yield return new WaitForSeconds(7f);
+        this.unityChan.SetActive(false);
+        this.unityChan.SetActive(true);
         foreach (var effect in this.leaveHomeEffects)
         {
             effect.SetActive(false);
