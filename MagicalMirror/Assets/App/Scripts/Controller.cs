@@ -22,6 +22,8 @@ public class Controller : MonoBehaviour {
     public GameObject cloudy;
     public GameObject snow;
     public GameObject rain;
+    public GameObject unityChanBase;
+    public GameObject unityChan;
 
     public Text echoSentenseText;
     public Text echoGestureText;
@@ -73,6 +75,9 @@ public class Controller : MonoBehaviour {
         {
             this.airplane,
         };
+        this.goHomeEffects = new GameObject[0]
+        {
+        };
 
         this.menuAnimator = this.informationPanel.GetComponent<Animator>();
         this.menuAnimator.SetBool("visible", false);
@@ -85,6 +90,9 @@ public class Controller : MonoBehaviour {
         this.cloudy.SetActive(false);
         this.rain.SetActive(false);
         this.snow.SetActive(false);
+
+        this.unityChan.SetActive(false);
+        this.unityChanBase.SetActive(false);
 
         var faceTracker = this.GetComponent<FaceTracker>();
         faceTracker.onFaceTacked = delegate ()
@@ -198,6 +206,7 @@ public class Controller : MonoBehaviour {
                 break;
             case AppMirrorAction.AppActionTypes.EmotionLoging:
                 {
+                    Debug.Log(string.Format("Command:{0}  SMILE:{1}", "Emotion", action.FaceExpressions.Smile));
                     Oniyamma.OniyammaService.Current.ApplyEmotion(new EmotionParameter()
                     {
                         Kiss = action.FaceExpressions.Kiss,
@@ -258,6 +267,7 @@ public class Controller : MonoBehaviour {
                     {
                         var ui = this.commandUIMap[actionType];
                         ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
+                        this.StartCoroutine(this.OnGoHomeFeedback());
                     }
                     break;
                 case AppMirrorAction.AppActionTypes.WeatherQueryFeedback:
@@ -270,6 +280,7 @@ public class Controller : MonoBehaviour {
             }
         }
     }
+
     private IEnumerator OnLeaveHomeFeedback()
     {
         foreach (var effect in this.leaveHomeEffects)
@@ -284,6 +295,26 @@ public class Controller : MonoBehaviour {
         }
     }
 
+    private IEnumerator OnGoHomeFeedback()
+    {
+        foreach (var effect in this.goHomeEffects)
+        {
+            effect.SetActive(false);
+            effect.SetActive(true);
+        }
+        this.unityChan.GetComponent<Animator>().CrossFade("TopOfJump(loop)", 0);
+        yield return new WaitForSeconds(1.5f);
+        this.unityChan.GetComponent<Animator>().CrossFade("TopOfJump(loop)", 0);
+        yield return new WaitForSeconds(1.5f);
+        this.unityChan.GetComponent<Animator>().CrossFade("TopOfJump(loop)", 0);
+
+        yield return new WaitForSeconds(7f);
+
+        foreach (var effect in this.goHomeEffects)
+        {
+            effect.SetActive(false);
+        }
+    }
     private IEnumerator OnWeatherFeedback()
     {
         GameObject target = null;
@@ -321,6 +352,9 @@ public class Controller : MonoBehaviour {
         this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
         this.menuAnimator.SetTrigger("showTrigger");
         this.menuAnimator.SetBool("visible", true);
+        this.unityChanBase.SetActive(true);
+        this.unityChan.SetActive(true);
+
         this.bird.SetActive(true);
         this.pig.SetActive(true);
         yield break;
@@ -329,6 +363,9 @@ public class Controller : MonoBehaviour {
     private IEnumerator OnFaceLost()
     {
         this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
+        this.unityChan.SetActive(false);
+        this.unityChanBase.SetActive(false);
+
         this.bird.SetActive(false);
         this.pig.SetActive(false);
         this.airplane.SetActive(false);

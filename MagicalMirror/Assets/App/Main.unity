@@ -1228,6 +1228,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400084, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: isWindActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
   m_IsPrefabParent: 0
@@ -1965,6 +1973,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850481537}
+--- !u!1 &886097440 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100268, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+  m_PrefabInternal: {fileID: 564921524}
 --- !u!1 &910719365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,6 +3018,8 @@ MonoBehaviour:
   cloudy: {fileID: 1153335928}
   snow: {fileID: 925776835}
   rain: {fileID: 1554930114}
+  unityChanBase: {fileID: 1575492900}
+  unityChan: {fileID: 886097440}
   echoSentenseText: {fileID: 607829966}
   echoGestureText: {fileID: 1712540031}
   echoExpressionText: {fileID: 659259934}
@@ -3694,6 +3708,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1575492901}
+  - 95: {fileID: 1575492902}
   m_Layer: 0
   m_Name: UnityChanBase
   m_TagString: Untagged
@@ -3714,6 +3729,23 @@ Transform:
   - {fileID: 1059575046}
   m_Father: {fileID: 1566805607}
   m_RootOrder: 7
+--- !u!95 &1575492902
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1575492900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 08395c81aa396644eb922069354aeab7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1600900456
 GameObject:
   m_ObjectHideFlags: 0
