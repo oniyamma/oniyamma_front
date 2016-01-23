@@ -53,9 +53,15 @@ public class Controller : MonoBehaviour {
     private WeatherType currentWeather = WeatherType.SUNNY;
     public float weatherFeedbackActionTime = 5.0f;
 
+    private GameObject[] leaveHomeEffects;
+    private GameObject[] goHomeEffects;
+    private GameObject[] idlingRandomEffects;
+
     // Use this for initialization
     void Start()
     {
+        Oniyamma.OniyammaService.Current.Init("http://10.0.1.148:3000");
+
         this.actionQueue = new List<AppMirrorAction>();
         this.commandUIMap = new Dictionary<AppMirrorAction.AppActionTypes, GameObject>()
            {
@@ -63,6 +69,10 @@ public class Controller : MonoBehaviour {
                { AppMirrorAction.AppActionTypes.GoHomeFeedback, this.goHomeCommandUI },
                { AppMirrorAction.AppActionTypes.WeatherQueryFeedback, this.weatherCommandUI },
           };
+        this.leaveHomeEffects = new GameObject[1]
+        {
+            this.airplane,
+        };
 
         this.menuAnimator = this.informationPanel.GetComponent<Animator>();
         this.menuAnimator.SetBool("visible", false);
@@ -173,7 +183,7 @@ public class Controller : MonoBehaviour {
                     this.StartCoroutine(this.TakePhoto(
                        delegate (string fileName)
                        {
-                           Debug.Log(string.Format("Command:{0}  ScreenShot:{1}", logType, fileName));
+                           Debug.Log(string.Format("Command:{0}  ScreenShot:{1} {2}", logType, fileName, File.Exists(fileName)));
 
                            OniyammaService.Current.AddLog(new LogParameter()
                            {
@@ -238,6 +248,12 @@ public class Controller : MonoBehaviour {
                     }
                     break;
                 case AppMirrorAction.AppActionTypes.LeaveHomeFeedback:
+                    {
+                        var ui = this.commandUIMap[actionType];
+                        ui.GetComponent<Animator>().Play("Fire", 0, 0.0f);
+                        this.StartCoroutine(this.OnLeaveHomeFeedback());
+                    }
+                    break;
                 case AppMirrorAction.AppActionTypes.GoHomeFeedback:
                     {
                         var ui = this.commandUIMap[actionType];
@@ -252,6 +268,19 @@ public class Controller : MonoBehaviour {
                     }
                     break;
             }
+        }
+    }
+    private IEnumerator OnLeaveHomeFeedback()
+    {
+        foreach (var effect in this.leaveHomeEffects)
+        {
+            effect.SetActive(false);
+            effect.SetActive(true);
+        }
+        yield return new WaitForSeconds(10f);
+        foreach (var effect in this.leaveHomeEffects)
+        {
+            effect.SetActive(false);
         }
     }
 
@@ -294,8 +323,7 @@ public class Controller : MonoBehaviour {
         this.menuAnimator.SetBool("visible", true);
         this.bird.SetActive(true);
         this.pig.SetActive(true);
-        yield return new WaitForSeconds(1);
-        this.airplane.SetActive(true);
+        yield break;
     }
 
     private IEnumerator OnFaceLost()
@@ -348,6 +376,9 @@ public class Controller : MonoBehaviour {
         this.menuAnimator.SetBool("visible", menuVisible);
         this.menuAnimator.SetTrigger("showTrigger");
         this.menuAnimator.speed = speed;
+
+        yield return new WaitForSeconds(0.5f);
+
         callback(fileName);
     }
 }
