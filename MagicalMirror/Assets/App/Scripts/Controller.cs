@@ -27,6 +27,7 @@ public class Controller : MonoBehaviour {
     public GameObject rain;
     public GameObject unityChanBase;
     public GameObject unityChan;
+    public GameObject unityChanBase2;
 
     public Text echoSentenseText;
     public Text echoGestureText;
@@ -90,7 +91,9 @@ public class Controller : MonoBehaviour {
             this.dog,
             this.duck,
             this.rabbit,
-        };
+            this.unityChanBase2,
+            this.unityChanBase2,
+       };
 
         this.menuAnimator = this.informationPanel.GetComponent<Animator>();
         this.menuAnimator.SetBool("visible", false);
@@ -156,7 +159,7 @@ public class Controller : MonoBehaviour {
         if (action.FaceExpressions != null)
         {
             this.RequestServiceCommand(AppMirrorAction.AppActionTypes.EmotionLoging, null, action);
-            this.echoExpressionText.text = string.Format("SMILE : {0}", action.FaceExpressions.Smile);
+            this.echoExpressionText.text = string.Format("SMILE:{0} KISS:{1}", action.FaceExpressions.Smile, action.FaceExpressions.Kiss);
         }
         else
         {

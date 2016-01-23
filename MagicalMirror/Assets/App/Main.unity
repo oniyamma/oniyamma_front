@@ -2159,6 +2159,8 @@ MonoBehaviour:
   colorCameraImage: {fileID: 1447567849}
   coodinateMappedDepthImage: {fileID: 1127994995}
   depthMapModeChangeKey: 100
+  whiteningUpKey: 273
+  whiteningDownKey: 274
 --- !u!1 &544580982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,6 +3230,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 30751102}
   m_RootOrder: 0
+--- !u!1 &795540451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 795540452}
+  - 95: {fileID: 795540453}
+  m_Layer: 0
+  m_Name: UnityChanBase2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &795540452
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795540451}
+  m_LocalRotation: {x: -0.00000016292068, y: -0.00000016292068, z: -1, w: 2.654315e-14}
+  m_LocalPosition: {x: -0.0878, y: 0.145, z: 0.2}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children:
+  - {fileID: 1035057563}
+  m_Father: {fileID: 1566805607}
+  m_RootOrder: 11
+--- !u!95 &795540453
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795540451}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e83ce2c411c7b704f86164341bccfede, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &799789199
 GameObject:
   m_ObjectHideFlags: 0
@@ -3967,6 +4015,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 672575609}
   m_RootOrder: 0
+--- !u!4 &1035057563 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+  m_PrefabInternal: {fileID: 1058741779}
 --- !u!1 &1051959329
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,6 +4093,72 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!1001 &1058741779
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 795540452}
+    m_Modifications:
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.058803
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.008322746
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.9901324
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.14013557
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400084, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: isWindActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400084, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1059575046 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400056, guid: e39dd657be7298d408f1a135c76c3d9a, type: 2}
@@ -5353,9 +5471,11 @@ MonoBehaviour:
   rain: {fileID: 1554930114}
   unityChanBase: {fileID: 1575492900}
   unityChan: {fileID: 886097440}
+  unityChanBase2: {fileID: 795540451}
   echoSentenseText: {fileID: 607829966}
   echoGestureText: {fileID: 1712540031}
   echoExpressionText: {fileID: 659259934}
+  serviceURL: http://10.0.1.148:3000
   weatherFeedbackActionTime: 5
 --- !u!114 &1386235083
 MonoBehaviour:
@@ -5418,7 +5538,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expressionDetectInterval: 1
-  outputLandmarkFile: 0
 --- !u!114 &1386235086
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6398,6 +6517,7 @@ Transform:
   - {fileID: 453499656}
   - {fileID: 191089383}
   - {fileID: 1056887910}
+  - {fileID: 795540452}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1 &1575492900
