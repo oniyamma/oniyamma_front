@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
     public GameObject UIRoot;
-    public GameObject informationPanel;
+    public Animator menuAnimator;
     public GameObject leaveHomeCommandUI;
     public GameObject goHomeCommandUI;
     public GameObject weatherCommandUI;
@@ -33,8 +33,6 @@ public class Controller : MonoBehaviour {
     public Text echoGestureText;
     public Text echoExpressionText;
 
-    public string serviceURL = "http://10.0.1.148:3000";
-
     private IList<AppMirrorAction> actionQueue;
 
     private static IDictionary<string, object> sentenceCommandMap = new Dictionary<string, object>
@@ -57,7 +55,6 @@ public class Controller : MonoBehaviour {
         { Oniyamma.LogType.GO_HOME, AppMirrorAction.AppActionTypes.GoHomeFeedback },
     };
     private IDictionary<AppMirrorAction.AppActionTypes, GameObject> commandUIMap;
-    private Animator menuAnimator;
     private WeatherType currentWeather = WeatherType.SUNNY;
     public float weatherFeedbackActionTime = 5.0f;
 
@@ -65,10 +62,12 @@ public class Controller : MonoBehaviour {
     private GameObject[] goHomeEffects;
     private GameObject[] idlingRandomEffects;
 
+    private BackendService Service { get; set; }
+
     // Use this for initialization
     void Start()
     {
-        Oniyamma.OniyammaService.Current.Init(this.serviceURL);
+        this.Service = this.GetComponent<BackendService>();
 
         this.actionQueue = new List<AppMirrorAction>();
         this.commandUIMap = new Dictionary<AppMirrorAction.AppActionTypes, GameObject>()
@@ -93,10 +92,9 @@ public class Controller : MonoBehaviour {
             this.rabbit,
             this.unityChanBase2,
             this.unityChanBase2,
-       };
+        };
 
-        this.menuAnimator = this.informationPanel.GetComponent<Animator>();
-        this.menuAnimator.SetBool("visible", false);
+        this.menuAnimator.SetTrigger("hideTrigger");
 
         foreach (var effect in this.idlingRandomEffects)
         {
@@ -212,8 +210,7 @@ public class Controller : MonoBehaviour {
                        delegate (string fileName)
                        {
                            Debug.Log(string.Format("Command:{0}  ScreenShot:{1} {2}", logType, fileName, File.Exists(fileName)));
-
-                           OniyammaService.Current.AddLog(new LogParameter()
+                           this.Service.AddLog(new LogParameter()
                            {
                                Type = logType,
                                FilePath = fileName,
@@ -227,7 +224,7 @@ public class Controller : MonoBehaviour {
             case AppMirrorAction.AppActionTypes.EmotionLoging:
                 {
                     Debug.Log(string.Format("Command:{0}  SMILE:{1}", "Emotion", action.FaceExpressions.Smile));
-                    Oniyamma.OniyammaService.Current.ApplyEmotion(new EmotionParameter()
+                    this.Service.ApplyEmotion(new EmotionParameter()
                     {
                         Kiss = action.FaceExpressions.Kiss,
                         Smile = action.FaceExpressions.Smile,
@@ -248,8 +245,7 @@ public class Controller : MonoBehaviour {
                         WeatherType.RAINY,
                         WeatherType.SNOW,
                     };
-                    var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[UnityEngine.Random.Range(0, 4)]);
-                    //var weather = Oniyamma.OniyammaService.Current.GetWeather(weathers[3]);
+                    var weather = this.Service.GetWeather(weathers[UnityEngine.Random.Range(0, 4)]);
                     Debug.Log(weather.Type);
                     this.currentWeather = weather.Type;
                 }
@@ -376,7 +372,6 @@ public class Controller : MonoBehaviour {
     {
         this.GetComponent<AudioSource>().PlayOneShot(this.faceTrackedSound);
         this.menuAnimator.SetTrigger("showTrigger");
-        this.menuAnimator.SetBool("visible", true);
         this.unityChanBase.SetActive(true);
         this.unityChan.SetActive(true);
         this.unityChan.GetComponent<Animator>().CrossFade("TopOfJump(loop)", 0);
@@ -385,7 +380,7 @@ public class Controller : MonoBehaviour {
 
     private IEnumerator OnFaceLost()
     {
-        this.informationPanel.GetComponent<Animator>().SetBool("visible", false);
+        this.menuAnimator.SetTrigger("hideTrigger");
         this.unityChan.SetActive(false);
         this.unityChanBase.SetActive(false);
         yield break;
