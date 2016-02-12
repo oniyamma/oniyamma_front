@@ -11,7 +11,6 @@ public class SpeechRecognizer : MonoBehaviour
     private PXCMSession session;
 
     private static IList<PXCMAudioSource.DeviceInfo> devices = new List<PXCMAudioSource.DeviceInfo>();
-    private PXCMAudioSource.DeviceInfo device = new PXCMAudioSource.DeviceInfo();
 
     private static Controller gameController;
 
@@ -75,8 +74,14 @@ public class SpeechRecognizer : MonoBehaviour
         source.SetVolume(setVolume);
 
         // Set Audio Source 
-        Debug.Log("Using device: " + device.name);
-        source.SetDevice(device);
+        foreach (var device in SpeechRecognizer.devices)
+        {
+            if (device.name == "マイク配列 (Creative VF0800)")
+            {
+                source.SetDevice(device);
+                Debug.Log("Using device: " + device.name);
+            }
+        }
 
         // Set Module 
         PXCMSession.ImplDesc mdesc = new PXCMSession.ImplDesc();
